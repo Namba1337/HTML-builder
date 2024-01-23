@@ -6,13 +6,17 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-rl.question('Hello, enter text: ', (answer) => {
-    fs.appendFile('02-write-file/text.txt', answer + '\n', (err) => {
-        if (err) throw err;
+const askQuestion = () => {
+    rl.question('Hello, enter text: ', (answer) => {
+        fs.appendFile('02-write-file/text.txt', answer + '\n', (err) => {
+            if (err) throw err;
+            console.log('The text has been added to the file!');
+            askQuestion(); // Задаем вопрос снова после записи в файл
+        });
     });
-    console.log('The text has been added to the file!');
-    rl.close();
-});
+};
+
+askQuestion(); // Запускаем цикл вопросов
 
 rl.on('SIGINT', () => {
     console.log('\nGoodbye!');
