@@ -13,11 +13,16 @@ const askQuestion = () => {
     firstQuestion = false;
 
     rl.question(question, (answer) => {
-        fs.appendFile('02-write-file/text.txt', answer + '\n', (err) => {
-            if (err) throw err;
-            console.log('The text has been added to the file!');
-            askQuestion(); // Задаем вопрос снова после записи в файл
-        });
+        if (answer.toLowerCase() === 'exit') {
+            console.log('\nGoodbye!');
+            process.exit();
+        } else {
+            fs.appendFile('02-write-file/text.txt', answer + '\n', (err) => {
+                if (err) throw err;
+                console.log('The text has been added to the file!');
+                askQuestion(); // Задаем вопрос снова после записи в файл
+            });
+        }
     });
 };
 
