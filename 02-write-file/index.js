@@ -6,8 +6,13 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
+let firstQuestion = true;
+
 const askQuestion = () => {
-    rl.question('Hello, enter text: ', (answer) => {
+    const question = firstQuestion ? 'Hello, enter text: ' : 'Enter text: ';
+    firstQuestion = false;
+
+    rl.question(question, (answer) => {
         fs.appendFile('02-write-file/text.txt', answer + '\n', (err) => {
             if (err) throw err;
             console.log('The text has been added to the file!');
